@@ -1,11 +1,11 @@
 from collections import deque
 
 class GameBoard:
-    def _init_(self, size, has_boundary) -> None:
+    def __init__(self, size, has_boundary) -> None:
         self.size = size
         self.has_boundary = has_boundary
         self.blocks = None # set of all the blocked cells
-        self.initBlocks()
+        self._initBlocks()
     
     def _initBlocks(self):
         self.blocks = set()
@@ -18,12 +18,12 @@ class GameBoard:
 
 
 class Snake:
-    def _init_(self) -> None:
+    def __init__(self) -> None:
         self.body = deque()
         self.body_cells = set()
-        self.initBody()
+        self.initBody() #to set snake's initial position and structure
     
-    def initBody(self, row=1, col=1, size=2):
+    def initBody(self, row=5, col=3, size=3):
         for i in range(size):
             self.body.append((row, col+i))
 
@@ -32,20 +32,49 @@ class Snake:
 class SnakeGame:
     # gameboard = GameBoard()
     # snake = Snake()
-    def _init_(self) -> None:
-        self.snake = None
-        self.board = None
+    def __init__(self) -> None:
+        self.snake = Snake()
+        self.board = GameBoard(10, True)
         self.score = 0
+        self.food = (3,4)
 
-    def moveSnake(self) -> None:
-        for i in range(GameBoard.size):
-            Snake.body.popleft()
-            Snake.body.append(i)
-        for i in range(GameBoard.size):
-            if i == 0 or i == GameBoard.size - 1:
-                Snake.body.append(i)
-                Snake.body.popleft()
-            else:
-                Snake.body.append(i)
-                Snake.body.popleft()
-                
+    def move(self, direction:str) -> bool:
+        # x, y    head = x facing right
+        # Right -> x + 1, y
+        # Up -> x, y + 1
+        # Down -> x , y - 1;
+        # Left -> no changes
+        # head = self.snake.body[0]
+        # if direction == 'W':
+        #     self.snake.body.append(head[0], head[1] + 1)
+        # elif direction == 'S':
+        #     self.snake.body.append(head[0], head[1] - 1)
+        # elif direction == 'D':
+        #     self.snake.body.append(head[0] + 1, head[1])
+        # elif direction == 'A':
+        #     self.snake.body.append(head[0] - 1, head[1])
+        pass
+
+    def display(self, is_game_over:bool):
+        for i in range(self.board.size):
+            for j in range(self.board.size):
+                if (i, j) in self.board.blocks or (i, j) in self.snake.body or (i, j) == self.food:
+                    print('#', end = "")
+                else:
+                    print(' ',end = "")
+            print()
+
+    def play(self):
+        # initialize snake, food, board
+        self.display(False)
+        print('Enter\nW for UP\nS for DOWN\nA for LEFT\nD for RIGHT')
+        while(True):
+            direction = input()
+            is_game_over = self.move(direction) 
+            self.display(is_game_over)
+            if is_game_over:
+                break
+
+snake_game = SnakeGame()
+snake_game.play()
+     
