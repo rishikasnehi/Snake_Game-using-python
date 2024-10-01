@@ -46,7 +46,7 @@ class SnakeGame:
         self.score = 0
         self.food = (3,4)
 
-    def move(self, input_direction:str) -> bool:
+    def move(self, input_direction : str) -> bool:
         # x, y    head = x facing right
         # Right -> x + 1, y
         # Up -> x, y + 1
@@ -74,55 +74,59 @@ class SnakeGame:
         cd = 'D', i/p = 'R', cd = 'R'
         cd = 'D', i/p = 'L', cd = 'L'
         '''
-        # head = self.snake.body[0]
+        head = self.snake.body[0]
+        # if current direction is right or left and input direction is up then (x - 1, y)
 
-        # if current direction is right or left and input direction is up then (x + 1, y)
-
-        # if input_direction == 'W' and (direction == Direction.RIGHT or direction == Direction.LEFT):
-        #     self.snake.body.append(head[0] + 1, head[1])
-        #     self.snake.body.popleft()
+        if input_direction == 'W' and (self.snake.direction == Direction.RIGHT or self.snake.direction == Direction.LEFT):
+            self.snake.body.append((head[0] - 1, head[1]))
+            self.snake.direction = Direction.UP
+            self.snake.body.popleft()
 
         # if current direction is up or down and input direction is up then (x + 1, y)
 
-        # if input_direction == 'W' and (direction == Direction.RIGHT or direction == Direction.LEFT):
-        #     self.snake.body.append(head[0] + 1, head[1])
-        #     self.snake.body.popleft()
+        if input_direction == 'W' and (self.snake.direction == Direction.UP or self.snake.direction == Direction.DOWN):
+            self.snake.body.append((head[0] - 1, head[1]))
+            self.snake.body.popleft()
 
         # if current direction is right or left and input direction is down then (x - 1, y)
 
-        # elif input_direction == 'S'and (direction == Direction.RIGHT or direction == Direction.LEFT):
-        #     self.snake.body.append(head[0] - 1, head[1])
-        #     self.snake.body.popleft()
+        elif input_direction == 'S'and (self.snake.direction == Direction.RIGHT or self.snake.direction == Direction.LEFT):
+            self.snake.body.append((head[0] + 1, head[1]))
+            self.snake.direction = Direction.DOWN
+            self.snake.body.popleft()
 
         # if current direction is up or down and input direction is down then (x + 1, y)
 
-        # if input_direction == 'W' and (direction == Direction.RIGHT or direction == Direction.LEFT):
-        #     self.snake.body.append(head[0] + 1, head[1])
-        #     self.snake.body.popleft()
+        if input_direction == 'W' and (self.snake.direction == Direction.UP or self.snake.direction == Direction.DOWN):
+            self.snake.body.append((head[0] + 1, head[1]))
+            self.snake.body.popleft()
 
         # if current direction is up or down and input direction is right then (x, y + 1)
 
-        # elif input_direction == 'D' and (direction == Direction.UP or direction == Direction.DOWN):
-        #     self.snake.body.append(head[0], head[1] + 1)
-        #     self.snake.body.popleft()
+        elif input_direction == 'D' and (self.snake.direction == Direction.UP or self.snake.direction == Direction.DOWN):
+            self.snake.body.append((head[0], head[1] + 1))
+            self.snake.direction = Direction.RIGHT
+            self.snake.body.popleft()
 
         # if current direction is right or left and input direction is right then (x, y + 1)
 
-        # elif input_direction == 'D' and (direction == Direction.RIGHT or direction == Direction.LEFT):
-        #     self.snake.body.append(head[0], head[1] + 1)
-        #     self.snake.body.popleft()
+        elif input_direction == 'D' and (self.snake.direction == Direction.RIGHT or self.snake.direction == Direction.LEFT):
+            self.snake.body.append((head[0], head[1] + 1))
+            self.snake.body.popleft()
 
         # if current direction is up or down and input direction is left then (x, y - 1)
 
-        # elif input_direction == 'A' and (direction == Direction.UP or direction == Direction.DOWN):
-        #     self.snake.body.append(head[0], head[1] - 1)
-        #     self.snake.body.popleft()
+        elif input_direction == 'A' and (self.snake.direction == Direction.UP or self.snake.direction == Direction.DOWN):
+            self.snake.body.append((head[0], head[1] - 1))
+            self.snake.direction = Direction.LEFT
+            self.snake.body.popleft()
 
         # if current direction is right or left and input direction is left then (x, y - 1)
 
-        # elif input_direction == 'A' and (direction == Direction.RIGHT or direction == Direction.LEFT):
-        #     self.snake.body.append(head[0], head[1]- 1)
-        #     self.snake.body.popleft()
+        elif input_direction == 'A' and (self.snake.direction == Direction.RIGHT or self.snake.direction == Direction.LEFT):
+            self.snake.body.append((head[0], head[1]- 1))
+            self.snake.direction = Direction.LEFT
+            self.snake.body.popleft()
 
         # 8 conditions done
         pass
