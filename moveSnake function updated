@@ -46,13 +46,61 @@ class SnakeGame:
         self.score = 0
         self.food = (3,4)
 
+    def getNextLocationandDirection(self, input_direction : str): 
+        head = self.snake.body[0]
+        new_direction = self.snake.direction
+        new_location = head
+
+        # if current direction is right or left and input direction is up then (x - 1, y)
+        # if current direction is up or down and input direction is up then (x - 1, y)
+
+        if input_direction == 'W':
+            if new_direction in (Direction.RIGHT, Direction.LEFT) :
+                new_location = (head[0] - 1, head[1])
+                new_direction = Direction.UP
+            elif new_direction in (Direction.UP, Direction.DOWN) :
+                new_location = (head[0] - 1, head[1])
+
+        # if current direction is right or left and input direction is down then (x + 1, y)
+        # if current direction is up or down and input direction is down then (x + 1, y)
+
+        elif input_direction == 'S':
+            if new_direction in (Direction.RIGHT, Direction.LEFT) :
+                new_location = (head[0] + 1, head[1])
+                new_direction = Direction.DOWN
+            elif new_direction in (Direction.UP, Direction.DOWN) :
+                new_location = (head[0] + 1, head[1])
+
+        # if current direction is up or down and input direction is right then (x, y + 1)
+        # if current direction is right or left and input direction is right then (x, y + 1)
+
+        elif input_direction == 'D':
+            if new_direction in (Direction.UP, Direction.DOWN):
+                new_position = (head[0], head[1] + 1)
+                new_direction = Direction.RIGHT
+            elif new_direction in (Direction.RIGHT, Direction.LEFT):
+                new_position = (head[0], head[1] + 1)
+
+        # if current direction is up or down and input direction is left then (x, y - 1)
+        # if current direction is right or left and input direction is left then (x, y - 1)
+
+        elif input_direction == 'A':  # Left
+            if new_direction in (Direction.UP, Direction.DOWN):
+                new_position = (head[0], head[1] - 1)
+                new_direction = Direction.LEFT
+            elif new_direction in (Direction.RIGHT, Direction.LEFT):
+                new_position = (head[0], head[1] - 1)
+
+        return new_location, new_direction
+
     def move(self, input_direction : str) -> bool:
-        # x, y    head = x facing right
-        # Right -> x + 1, y
-        # Up -> x, y + 1
-        # Down -> x , y - 1;
-        # Left -> no changes
-        ''' 
+
+        '''
+        x, y    head = x facing right
+        Right -> x + 1, y
+        Up -> x, y + 1
+        Down -> x , y - 1;
+        Left -> no changes
         direction U, D, R, L
         cd = 'R', i/p = 'U', cd = 'U' (x + 1, y)
         cd = 'R', i/p = 'D', cd = 'D' (x - 1, y)
@@ -74,62 +122,13 @@ class SnakeGame:
         cd = 'D', i/p = 'R', cd = 'R'
         cd = 'D', i/p = 'L', cd = 'L'
         '''
-        head = self.snake.body[0]
-        # if current direction is right or left and input direction is up then (x - 1, y)
+        new_position, new_direction = self.getNextLocationandDirection(input_direction)
+        self.snake.body.append(new_position)
+        self.snake.direction = new_direction
+        self.snake.body.popleft()
 
-        if input_direction == 'W' and (self.snake.direction == Direction.RIGHT or self.snake.direction == Direction.LEFT):
-            self.snake.body.append((head[0] - 1, head[1]))
-            self.snake.direction = Direction.UP
-            self.snake.body.popleft()
+        return True
 
-        # if current direction is up or down and input direction is up then (x + 1, y)
-
-        if input_direction == 'W' and (self.snake.direction == Direction.UP or self.snake.direction == Direction.DOWN):
-            self.snake.body.append((head[0] - 1, head[1]))
-            self.snake.body.popleft()
-
-        # if current direction is right or left and input direction is down then (x - 1, y)
-
-        elif input_direction == 'S'and (self.snake.direction == Direction.RIGHT or self.snake.direction == Direction.LEFT):
-            self.snake.body.append((head[0] + 1, head[1]))
-            self.snake.direction = Direction.DOWN
-            self.snake.body.popleft()
-
-        # if current direction is up or down and input direction is down then (x + 1, y)
-
-        if input_direction == 'W' and (self.snake.direction == Direction.UP or self.snake.direction == Direction.DOWN):
-            self.snake.body.append((head[0] + 1, head[1]))
-            self.snake.body.popleft()
-
-        # if current direction is up or down and input direction is right then (x, y + 1)
-
-        elif input_direction == 'D' and (self.snake.direction == Direction.UP or self.snake.direction == Direction.DOWN):
-            self.snake.body.append((head[0], head[1] + 1))
-            self.snake.direction = Direction.RIGHT
-            self.snake.body.popleft()
-
-        # if current direction is right or left and input direction is right then (x, y + 1)
-
-        elif input_direction == 'D' and (self.snake.direction == Direction.RIGHT or self.snake.direction == Direction.LEFT):
-            self.snake.body.append((head[0], head[1] + 1))
-            self.snake.body.popleft()
-
-        # if current direction is up or down and input direction is left then (x, y - 1)
-
-        elif input_direction == 'A' and (self.snake.direction == Direction.UP or self.snake.direction == Direction.DOWN):
-            self.snake.body.append((head[0], head[1] - 1))
-            self.snake.direction = Direction.LEFT
-            self.snake.body.popleft()
-
-        # if current direction is right or left and input direction is left then (x, y - 1)
-
-        elif input_direction == 'A' and (self.snake.direction == Direction.RIGHT or self.snake.direction == Direction.LEFT):
-            self.snake.body.append((head[0], head[1]- 1))
-            self.snake.direction = Direction.LEFT
-            self.snake.body.popleft()
-
-        # 8 conditions done
-        pass
 
     def display(self, is_game_over:bool):
         for i in range(self.board.size):
