@@ -74,49 +74,43 @@ class SnakeGame:
         cd = 'D', i/p = 'R', cd = 'R'
         cd = 'D', i/p = 'L', cd = 'L'
         '''
-        head = self.snake.body[0]
-        new_direction = self.snake.direction
+        head = self.snake.body[-1]
+        current_direction = self.snake.direction
+        new_direction = current_direction
         new_location = head
 
-        # if current direction is right or left and input direction is up then (x - 1, y)
-        # if current direction is up or down and input direction is up then (x - 1, y)
+        if input_direction == 'D':
+            if new_direction in (Direction.UP, Direction.DOWN, Direction.RIGHT):
+                new_location = (head[0], head[1] + 1)
+                new_direction = Direction.RIGHT
+            elif new_direction is (Direction.LEFT):
+                new_location = (head[0], head[1] - 1)
+                new_direction = Direction.LEFT
 
-        if input_direction == 'W':
-            if new_direction in (Direction.RIGHT, Direction.LEFT) :
+        elif input_direction == 'A':
+            if new_direction in (Direction.UP, Direction.DOWN, Direction.LEFT):
+                new_location = (head[0], head[1] - 1)
+                new_direction = Direction.LEFT
+            elif new_direction is (Direction.RIGHT):
+                new_location = (head[0], head[1] + 1)
+                new_direction = Direction.RIGHT
+
+        elif input_direction == 'W':
+            if current_direction in (Direction.RIGHT, Direction.LEFT, Direction.UP) :
                 new_location = (head[0] - 1, head[1])
                 new_direction = Direction.UP
-            elif new_direction in (Direction.UP, Direction.DOWN) :
-                new_location = (head[0] - 1, head[1])
-
-        # if current direction is right or left and input direction is down then (x + 1, y)
-        # if current direction is up or down and input direction is down then (x + 1, y)
-
-        elif input_direction == 'S':
-            if new_direction in (Direction.RIGHT, Direction.LEFT) :
+            elif current_direction in (Direction.DOWN) :
                 new_location = (head[0] + 1, head[1])
                 new_direction = Direction.DOWN
-            elif new_direction in (Direction.UP, Direction.DOWN) :
+
+        elif input_direction == 'S':
+            if new_direction in (Direction.RIGHT, Direction.LEFT, Direction.DOWN) :
                 new_location = (head[0] + 1, head[1])
+                new_direction = Direction.DOWN
+            elif new_direction in (Direction.UP) :
+                new_location = (head[0] - 1, head[1])
+                new_direction = Direction.UP
 
-        # if current direction is up or down and input direction is right then (x, y + 1)
-        # if current direction is right or left and input direction is right then (x, y + 1)
-
-        elif input_direction == 'D':
-            if new_direction in (Direction.UP, Direction.DOWN):
-                new_position = (head[0], head[1] + 1)
-                new_direction = Direction.RIGHT
-            elif new_direction in (Direction.RIGHT, Direction.LEFT):
-                new_position = (head[0], head[1] + 1)
-
-        # if current direction is up or down and input direction is left then (x, y - 1)
-        # if current direction is right or left and input direction is left then (x, y - 1)
-
-        elif input_direction == 'A':  # Left
-            if new_direction in (Direction.UP, Direction.DOWN):
-                new_position = (head[0], head[1] - 1)
-                new_direction = Direction.LEFT
-            elif new_direction in (Direction.RIGHT, Direction.LEFT):
-                new_position = (head[0], head[1] - 1)
 
         return new_location, new_direction
 
