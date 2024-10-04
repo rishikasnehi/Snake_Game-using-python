@@ -1,11 +1,15 @@
 from collections import deque
 from enum import Enum
+import os
 
 class Direction(Enum):
     RIGHT = 1
     LEFT = 2
     UP = 3
     DOWN = 4
+
+def cls():
+    os.system('cls' if os.name=='nt' else 'clear')
 
 class GameBoard:
     def __init__(self, size, has_boundary) -> None:
@@ -121,10 +125,12 @@ class SnakeGame:
         self.snake.direction = new_direction
         self.snake.body.popleft()
 
-        return True
+        return False
 
 
     def display(self, is_game_over:bool):
+        cls()
+        print('\n\n\n\n')
         for i in range(self.board.size):
             for j in range(self.board.size):
                 if (i, j) in self.board.blocks or (i, j) in self.snake.body or (i, j) == self.food:
@@ -132,6 +138,7 @@ class SnakeGame:
                 else:
                     print(' ',end = "")
             print()
+        print('\n\n\n')
 
     def play(self):
         # initialize snake, food, board
