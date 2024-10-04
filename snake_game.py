@@ -118,14 +118,20 @@ class SnakeGame:
 
         return new_location, new_direction
 
+    def isSafePosition(self, new_position) -> bool:
+        return True
+
     def move(self, input_direction : str) -> bool:
 
         new_position, new_direction = self.getNextLocationandDirection(input_direction)
+        if not self.isSafePosition(new_position):
+            # snake collided with something
+            return False
         self.snake.body.append(new_position)
         self.snake.direction = new_direction
         self.snake.body.popleft()
 
-        return False
+        return True
 
 
     def display(self, is_game_over:bool):
@@ -146,9 +152,9 @@ class SnakeGame:
         print('Enter\nW for UP\nS for DOWN\nA for LEFT\nD for RIGHT')
         while(True):
             direction = input()
-            is_game_over = self.move(direction) 
-            self.display(is_game_over)
-            if is_game_over:
+            is_valid_move = self.move(direction) 
+            self.display(is_valid_move)
+            if not is_valid_move:
                 break
 
 snake_game = SnakeGame()
