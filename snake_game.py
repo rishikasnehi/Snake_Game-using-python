@@ -145,7 +145,10 @@ class SnakeGame:
         for i in range(self.board.size):
             for j in range(self.board.size):
                 if (i, j) in self.board.blocks or (i, j) in self.snake.body or (i, j) == self.food:
-                    print('#', end = "")
+                    if ((i, j) == self.snake.body[-1]):
+                        print('*', end = "")
+                    else:
+                        print('#', end = "")
                 else:
                     print(' ',end = "")
             print()
