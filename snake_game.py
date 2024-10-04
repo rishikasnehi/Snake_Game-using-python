@@ -15,12 +15,11 @@ class GameBoard:
     def __init__(self, size, has_boundary) -> None:
         self.size = size
         self.has_boundary = has_boundary
-        self.blocks = None # set of all the blocked cells
+        self.blocks = set() # set of all the blocked cells
         self._initBlocks()
     
     def _initBlocks(self):
-        self.blocks = set()
-        # TODO: fill blocks with boundary cells
+        # filling blocks with boundary cells
         for i in range(self.size):
             self.blocks.add((0, i))
             self.blocks.add((i, 0))
@@ -35,7 +34,7 @@ class Snake:
         self.initBody() #to set snake's initial position and structure
         self.direction = Direction.RIGHT
     
-    def initBody(self, row=5, col=3, size=3):
+    def initBody(self, row=5, col=3, size=4):
         for i in range(size):
             self.body.append((row, col+i))
 
@@ -119,6 +118,12 @@ class SnakeGame:
         return new_location, new_direction
 
     def isSafePosition(self, new_position) -> bool:
+        # check if the new_position is on blocks
+        if new_position in self.board.blocks:
+            return False
+        # check if the new_position is on snake body
+        if new_position in self.snake.body and new_position != self.snake.body[0]:
+            return False
         return True
 
     def move(self, input_direction : str) -> bool:
