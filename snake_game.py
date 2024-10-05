@@ -92,6 +92,12 @@ class SnakeGame:
 
         return new_location, new_direction
 
+    def hasEatenFood(self, new_position) -> bool:
+        if new_position == self.food:
+            self.score += 1
+            return True
+        return False
+
     def isSafePosition(self, new_position) -> bool:
         # check if the new_position is on blocks
         if new_position in self.board.blocks:
@@ -107,6 +113,8 @@ class SnakeGame:
         if not self.isSafePosition(new_position):
             # snake collided with something
             return False
+        if self.hasEatenFood(new_position):
+            print(self.score)
         self.snake.body.append(new_position)
         self.snake.direction = new_direction
         self.snake.body.popleft()
