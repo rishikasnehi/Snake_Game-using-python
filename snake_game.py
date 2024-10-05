@@ -1,3 +1,5 @@
+#git log
+#git show
 from collections import deque
 from enum import Enum
 import os
@@ -50,33 +52,6 @@ class SnakeGame:
         self.food = (3,4)
 
     def getNextLocationandDirection(self, input_direction : str): 
-        '''
-        x, y    head = x facing right
-        Right -> x + 1, y
-        Up -> x, y + 1
-        Down -> x , y - 1;
-        Left -> no changes
-        direction U, D, R, L
-        cd = 'R', i/p = 'U', cd = 'U' (x + 1, y)
-        cd = 'R', i/p = 'D', cd = 'D' (x - 1, y)
-        cd = 'R', i/p = 'R', cd = 'R'
-        cd = 'R', i/p = 'L', cd = 'R'
-        
-        cd = 'L', i/p = 'U', cd = 'U'
-        cd = 'L', i/p = 'D', cd = 'D'
-        cd = 'L', i/p = 'R', cd = 'L'
-        cd = 'L', i/p = 'L', cd = 'L'
-        
-        cd = 'U', i/p = 'U', cd = 'U'
-        cd = 'U', i/p = 'D', cd = 'U'
-        cd = 'U', i/p = 'R', cd = 'R'
-        cd = 'U', i/p = 'L', cd = 'L'
-        
-        cd = 'D', i/p = 'U', cd = 'D'
-        cd = 'D', i/p = 'D', cd = 'D'
-        cd = 'D', i/p = 'R', cd = 'R'
-        cd = 'D', i/p = 'L', cd = 'L'
-        '''
         head = self.snake.body[-1]
         current_direction = self.snake.direction
         new_direction = current_direction
