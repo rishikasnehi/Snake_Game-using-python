@@ -18,7 +18,12 @@ class GameBoard:
         self.size = size
         self.has_boundary = has_boundary
         self.blocks = set() # set of all the blocked cells
+        self.empty_spaces =set()
         self._initBlocks()
+
+    def initEmptySpaces(self):
+        # filling the empty spaces in the snake board
+        pass
     
     def _initBlocks(self):
         # filling blocks with boundary cells
@@ -92,7 +97,7 @@ class SnakeGame:
 
         return new_location, new_direction
 
-    def hasEatenFood(self, new_position) -> bool:
+    def isFoodPosition(self, new_position) -> bool:
         if new_position == self.food:
             self.score += 1
             return True
