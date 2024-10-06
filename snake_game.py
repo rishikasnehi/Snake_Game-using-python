@@ -15,6 +15,7 @@ def cls():
 
 class GameBoard:
     def __init__(self, size, has_boundary) -> None:
+        self.snake = Snake()
         self.size = size
         self.has_boundary = has_boundary
         self.blocks = set() # set of all the blocked cells
@@ -23,6 +24,10 @@ class GameBoard:
 
     def initEmptySpaces(self):
         # filling the empty spaces in the snake board
+        for i in range(self.size):
+            for j in range(self.size):
+                if (i, j) in self.blocks or (i, j) in self.snake.body :
+                    self.empty_spaces.add(i, j)
         pass
     
     def _initBlocks(self):
