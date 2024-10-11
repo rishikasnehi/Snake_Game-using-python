@@ -26,9 +26,8 @@ class GameBoard:
         # filling the empty spaces in the snake board
         for i in range(self.size):
             for j in range(self.size):
-                if (i, j) in self.blocks or (i, j) in self.snake.body :
+                if (i, j) not in self.blocks or (i, j) not in self.snake.body :
                     self.empty_spaces.add(i, j)
-        pass
     
     def _initBlocks(self):
         # filling blocks with boundary cells
@@ -107,6 +106,9 @@ class SnakeGame:
             self.score += 1
             return True
         return False
+
+    def generateNewFood(self):
+        pass
 
     def isSafePosition(self, new_position) -> bool:
         # check if the new_position is on blocks
