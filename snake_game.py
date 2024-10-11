@@ -3,6 +3,7 @@
 from collections import deque
 from enum import Enum
 import os
+import random
 
 class Direction(Enum):
     RIGHT = 1
@@ -108,7 +109,8 @@ class SnakeGame:
         return False
 
     def generateNewFood(self):
-        pass
+        new_food_position = random.choice(list(self.board.empty_spaces))
+        return new_food_position
 
     def isSafePosition(self, new_position) -> bool:
         # check if the new_position is on blocks
@@ -125,6 +127,8 @@ class SnakeGame:
         if not self.isSafePosition(new_position):
             # snake collided with something
             return False
+        if(self.isFoodPosition):
+            self.generateNewFood
         self.snake.body.append(new_position)
         self.snake.direction = new_direction
         self.board.empty_spaces.add(self.snake.body[0])
