@@ -147,6 +147,7 @@ class SnakeGame:
     def display(self, is_game_over:bool):
         cls()
         print('\n\n\n\n')
+        print('Score:', self.score)
         # print(self.board.empty_spaces)
         for i in range(self.board.size):
             for j in range(self.board.size):
