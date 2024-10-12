@@ -22,13 +22,14 @@ class GameBoard:
         self.blocks = set() # set of all the blocked cells
         self.empty_spaces =set()
         self._initBlocks()
+        self._initEmptySpaces()
 
-    def initEmptySpaces(self):
+    def _initEmptySpaces(self):
         # filling the empty spaces in the snake board
         for i in range(self.size):
             for j in range(self.size):
-                if (i, j) not in self.blocks or (i, j) != self.snake.body :
-                    self.empty_spaces.add(i, j)
+                if (i, j) not in self.blocks and (i, j) not in self.snake.body :
+                    self.empty_spaces.add((i, j))
     
     def _initBlocks(self):
         # filling blocks with boundary cells
@@ -110,6 +111,7 @@ class SnakeGame:
     def consumeFood(self):
         new_food_position = self.generateNewFood()
         self.score += 1
+        print('Your Score : ', self.score)
         self.food = new_food_position
 
     def generateNewFood(self):
@@ -145,11 +147,12 @@ class SnakeGame:
     def display(self, is_game_over:bool):
         cls()
         print('\n\n\n\n')
+        # print(self.board.empty_spaces)
         for i in range(self.board.size):
             for j in range(self.board.size):
-                if  ((i, j) == self.food):
-                    print('o', end = "")
-                if (i, j) in self.board.blocks or (i, j) in self.snake.body :
+                # if  ():
+                    # print('o', )
+                if (i, j) in self.board.blocks or (i, j) in self.snake.body or (i, j) == self.food:
                     if ((i, j) == self.snake.body[-1]):
                         print('*', end = "")
                     else:
