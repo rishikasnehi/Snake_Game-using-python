@@ -151,13 +151,15 @@ class SnakeGame:
         # print(self.board.empty_spaces)
         for i in range(self.board.size):
             for j in range(self.board.size):
-                # if  ():
-                    # print('o', )
-                if (i, j) in self.board.blocks or (i, j) in self.snake.body or (i, j) == self.food:
+                if  ((i, j) == self.food):
+                    print('*', end = "")
+                elif (i, j) in self.board.blocks:
+                    print('#', end="")
+                elif (i, j) in self.snake.body:
                     if ((i, j) == self.snake.body[-1]):
-                        print('*', end = "")
+                        print('o', end = "")
                     else:
-                        print('#', end = "")
+                        print('x', end = "")
                 else:
                     print(' ',end = "")
             print()
