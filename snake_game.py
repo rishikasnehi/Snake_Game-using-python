@@ -27,7 +27,7 @@ class GameBoard:
         # filling the empty spaces in the snake board
         for i in range(self.size):
             for j in range(self.size):
-                if (i, j) not in self.blocks or (i, j) not in self.snake.body :
+                if (i, j) not in self.blocks or (i, j) != self.snake.body :
                     self.empty_spaces.add(i, j)
     
     def _initBlocks(self):
@@ -104,9 +104,13 @@ class SnakeGame:
 
     def isFoodPosition(self, new_position) -> bool:
         if new_position == self.food:
-            self.score += 1
             return True
         return False
+
+    def consumeFood(self):
+        new_food_position = self.generateNewFood()
+        self.score += 1
+        self.food = new_food_position
 
     def generateNewFood(self):
         new_food_position = random.choice(list(self.board.empty_spaces))
@@ -127,12 +131,13 @@ class SnakeGame:
         if not self.isSafePosition(new_position):
             # snake collided with something
             return False
-        if(self.isFoodPosition):
-            self.generateNewFood
         self.snake.body.append(new_position)
         self.snake.direction = new_direction
-        self.board.empty_spaces.add(self.snake.body[0])
-        self.snake.body.popleft()
+        if self.isFoodPosition(new_position):
+            self.consumeFood()
+        else: # snake will not shrink when he eats food 
+            tail_position = self.snake.body.popleft()
+            self.board.empty_spaces.add(tail_position)
 
         return True
 
@@ -142,7 +147,9 @@ class SnakeGame:
         print('\n\n\n\n')
         for i in range(self.board.size):
             for j in range(self.board.size):
-                if (i, j) in self.board.blocks or (i, j) in self.snake.body or (i, j) == self.food:
+                if  ((i, j) == self.food):
+                    print('o', end = "")
+                if (i, j) in self.board.blocks or (i, j) in self.snake.body :
                     if ((i, j) == self.snake.body[-1]):
                         print('*', end = "")
                     else:
