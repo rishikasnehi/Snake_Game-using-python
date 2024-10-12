@@ -134,6 +134,7 @@ class SnakeGame:
             # snake collided with something
             return False
         self.snake.body.append(new_position)
+        self.board.empty_spaces.remove(new_position)
         self.snake.direction = new_direction
         if self.isFoodPosition(new_position):
             self.consumeFood()
