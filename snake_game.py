@@ -175,6 +175,8 @@ class SnakeGame:
             is_valid_move = self.move(direction) 
             self.display(is_valid_move)
             if not is_valid_move:
+                print("GAME OVER")
+                print("Your Final Score : ", self.score)
                 break
 
 snake_game = SnakeGame()
