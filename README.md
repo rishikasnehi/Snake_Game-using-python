@@ -27,12 +27,28 @@ A classic Snake Game implemented in Python. The objective is to control the snak
    python snake.py
    ```
 
-*(Make sure you use the correct filename if the main game file is named differently.)*
 
-## Gameplay
+## 🎮 Gameplay Controls (A S W D)
 
-- Use arrow keys to control the direction of the snake.
-- Each time the snake eats the food, it grows longer and the score increases.
-- The game is over if the snake collides with the wall or itself.
+Use these keys to control the snake:
 
+- **W** → Move Up  
+- **S** → Move Down  
+- **A** → Move Left  
+- **D** → Move Right  
 
+---
+
+## 🕹️ Gameplay Rules
+
+- Eat food to grow longer  
+- Score increases with every food item eaten  
+- Game over if:  
+  - The snake hits a wall  
+  - The snake collides with its own body  
+
+---
+
+## 🤝 Contributing
+
+Feel free to submit issues or pull requests to improve the game.
