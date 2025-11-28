@@ -35,6 +35,4 @@ A classic Snake Game implemented in Python. The objective is to control the snak
 - Each time the snake eats the food, it grows longer and the score increases.
 - The game is over if the snake collides with the wall or itself.
 
-## License
 
-This project is licensed under the MIT License.
